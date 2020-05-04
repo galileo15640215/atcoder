@@ -1,0 +1,27 @@
+DROP TABLE IF EXISTS hotels;
+DROP TABLE IF EXISTS rooms;
+
+-- 宿泊施設情報を格納するテーブル
+CREATE TABLE hotels (
+  id integer PRIMARY KEY AUTOINCREMENT, -- 宿泊施設ID
+  name varchar NOT NULL, -- 宿泊施設名
+  breakfast varchar NOT NULL, -- 朝食の種類 （"none","continental","american","english","washoku","buffet"）
+  large_public_bath boolean NOT NULL, -- 大浴場の有無 (1:有り 0:無し) ※これ以外の値は取らない
+  prefecture varchar NOT NULL, -- 都道府県
+  city varchar NOT NULL -- 市区町村
+);
+
+-- 客室情報を格納するテーブル
+CREATE TABLE rooms (
+  id integer PRIMARY KEY AUTOINCREMENT, -- 客室ID
+  hotel_id integer NOT NULL, -- 宿泊施設ID
+  name varchar NOT NULL, -- 客室名
+  num integer NOT NULL, -- 客室数
+  price integer NOT NULL, -- 一泊料金（円）
+  space decimal NOT NULL, -- 床面積（平方メートル）
+  bed varchar NOT NULL, -- ベッドの規格（single,semi-double,double,semi-queen,queen,semi-king,king,...）
+  non_smoking boolean NOT NULL, -- 禁煙ルームか否か（1:禁煙 0:喫煙可）※これ以外の値は取らない
+  ladies boolean NOT NULL, -- 女性専用か否か（1:女性専用 0:男女共用）※これ以外の値は取らない
+  wifi boolean NOT NULL, -- 無料Wi-Fiの提供の有無（1:有り 0:無し）※これ以外の値は取らない
+  FOREIGN KEY(hotel_id) REFERENCES hotels(id)
+);
