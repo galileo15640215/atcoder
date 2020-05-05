@@ -1,17 +1,25 @@
-k = int(input())
+n, k = map(int, input().split())
+a = input()
 l = []
-for i in range(1, 10):
-    l.append(i)
-judge = l
-for d in range(1, 10):
-    tmp = []
-    for i in range(len(judge)):
-        val = judge[i]
-        for j in range(-1, 2):
-            add = val%10 + j
-            if add >= 0 and add <= 9:
-                tmp.append(val*10 + add)
-    for i in range(len(tmp)):
-        l.append(tmp[i])
-    judge = tmp
-print(l[k-1])
+if a[0] == '0':
+    l.append(0)
+sum = []
+i = 0
+while i < len(a):
+    j = i
+    while j < len(a) and a[j] == a[i]:
+        j += 1
+    l.append(j-i)
+    i = j
+if a[-1] == '0':
+    l.append(0)
+num = [0]*(len(l)+1)
+for i in range(0, len(l)):
+    num[i+1] = num[i]+l[i]
+ans = -1
+for i in range(0, len(num), 2):
+    j = i + k*2+1
+    if j >= len(num):
+        j = len(num)-1
+    ans = max(ans, num[j] - num[i])
+print(ans)
