@@ -7,5 +7,5 @@ xcopy /d C:\Users\ktais\desktop\at C:\Users\ktais\github\atcoder\atcoder
 cd atcoder
 git add --all
 git commit -m "auto commit"
-git push
+git push -f
 pause
