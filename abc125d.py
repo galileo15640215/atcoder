@@ -1,27 +1,17 @@
-n=int(input())
-a=list(map(int, input().split()))
-b = []
+n = int(input())
+a = list(map(int, input().split()))
+cnt = 2
+for i in range(n):
+    if a[i] < 0:
+        cnt += 1
 sum = 0
 for i in range(n):
-  sum += a[i]
-max = sum
-c = a
-min = c[0] + c[1]
-key1 = 0
-key2 = 1
-while(1):
-  for i in range(1, n-1):
-    if min > c[i] + c[i+1]:
-      min = c[i] + c[i+1]
-      key1 = i
-      key2 = i+1
-    c[key1] = c[key1]*(-1)
-    c[key2] = c[key2]*(-1)
-  sum = 0
-  for i in range(n):
-    sum += c[i]
-  if max < sum:
-    max = sum
-  else:
-    break
-print(max)
+    sum += abs(a[i])
+if cnt%2 == 0:
+    print(sum)
+else:
+    mi = abs(a[0])
+    for i in range(n):
+        if mi > abs(a[i]):
+            mi = abs(a[i])
+    print(sum - mi - mi)

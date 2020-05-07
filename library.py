@@ -1,4 +1,5 @@
 import math
+import heapq
 
 def lcm(x, y):
     return (x * y) // math.gcd(x, y)
@@ -26,3 +27,18 @@ for k in range(10):
     for i in range(10):
         for j in range(10):
             c[i][j] = min(c[i][j], c[i][k] + c[k][j])
+
+#しゃく取り法
+right = 0
+ans = 0
+for left in range(n):
+    while right < n-1 and s[right] < s[right+1]:
+        right += 1
+    ans += right - left + 1
+    if right == left:
+        right += 1
+
+#優先度付きキュー
+a = list(map(lambda x: x*(-1), a)) #最大値
+heapq.heapify(a)
+heapq.heappush(a, tmp)
