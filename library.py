@@ -74,3 +74,5 @@ print array
 # 検索　（戻り値はインデックス）
 bisect.bisect_left(array, 8)
 bisect.bisect_right(array, 9)
+
+#bit全探索
