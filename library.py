@@ -76,3 +76,16 @@ bisect.bisect_left(array, 8)
 bisect.bisect_right(array, 9)
 
 #bit全探索
+for i in range(n**2):
+    op = [False]*n
+    for j in range(n):
+        if i >> j & 1:
+            op[n-1-j] = True
+    print(op)
+
+#ゼロ埋め
+s.zfill(8)
+
+#コピー
+import copy
+q = copy.copy(p)
