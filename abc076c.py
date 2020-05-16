@@ -1,28 +1,38 @@
 s = list(input())
 t = list(input())
-idx = -1
-jdx = -1
-for i in range(len(s)-1, -1, -1):
-    for j in range(len(t)-1, -1, -1):
-        if s[i] == t[j]:
-            print(i, j)
-            k = i
-            l = j
-            while s[k] == t[l]:
-                k += 1
-                l += 1
-            idx = i
-            jdx = k
-print(idx, jdx)
-for i in range(0, idx):
-    if s[i] == '?':
-        print('a', end='')
+ls = len(s)
+lt = len(t)
+if ls < lt:
+    print("UNRESTORABLE")
+else:
+    res = []
+    for i in range(ls-lt+1):
+        res.append(s[i:i+lt])
+    tmp = []
+    for i in range(len(res)):
+        flag = True
+        for j in range(lt):
+            if res[i][j] == t[j] or res[i][j] == '?':
+                pass
+            else:
+                flag = False
+                break
+        if flag:
+            tmp.append(i)
+    ans = []
+    for i in tmp:
+        q = []
+        for j in range(0, i):
+            q.append(s[j])
+        for j in range(0, lt):
+            q.append(t[j])
+        for j in range(i+lt, ls):
+            q.append(s[j])
+        for j in range(ls):
+            if q[j] == '?':
+                q[j] = 'a'
+        ans.append(''.join(q))
+    if ans:
+        print(min(ans))
     else:
-        print(s[i], end='')
-for i in range(idx, jdx):
-    print(t[i], end='')
-for i in range(jdx, len(s)):
-    if s[i] == '?':
-        print('a', end='')
-    else:
-        print(s[i], end='')
+        print("UNRESTORABLE")

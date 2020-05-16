@@ -3,7 +3,11 @@ import heapq
 
 def lcm(x, y):
     return (x * y) // math.gcd(x, y)
-
+def gcd(x, y):
+    if y == 0:
+        return x
+    else:
+        return gcd(y, x % y) #再帰定義
 def is_prime(n):
     if n == 1: return False
 
@@ -13,6 +17,24 @@ def is_prime(n):
 
     return True
 
+#nの約数を全て求める
+def divisor(n): 
+    i = 1
+    table = []
+    while i * i <= n:
+        if n%i == 0:
+            table.append(i)
+            table.append(n//i)
+        i += 1
+    table = list(set(table))
+    return table
+#公約数を求める
+def cf(x1,x2):
+    cf=[]
+    for i in range(2,min(x1,x2)+1):
+        if x1 % i == 0 and x2 % i == 0:
+            cf.append(i)
+    return cf
 
 ''.join(s)
 s = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
@@ -89,3 +111,23 @@ s.zfill(8)
 #コピー
 import copy
 q = copy.copy(p)
+
+#素因数分解
+def factorization(n):
+    arr = []
+    temp = n
+    for i in range(2, int(-(-n**0.5//1))+1):
+        if temp%i==0:
+            cnt=0
+            while temp%i==0:
+                cnt+=1
+                temp //= i
+            arr.append([i, cnt])
+
+    if temp!=1:
+        arr.append([temp, 1])
+
+    if arr==[]:
+        arr.append([n, 1])
+
+    return arr
