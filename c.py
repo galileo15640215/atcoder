@@ -1,26 +1,30 @@
-h, w = map(int, input().split())
-n = int(input())
-a = list(map(int, input().split()))
-field = [[0 for j in range(w)] for i in range(h)]
-#[y, x]
-d = [[0, 1], [1, 0], [0, -1], [-1, 0]]
-y, x = 0, 0
-if h == 1 and w == 1:
-    print(1)
-else:
-    for i in range(n):
-        cnt = a[i]
-        while cnt > 0:
-            for j in range(len(d)):
-                if 0 <= y + d[j][0] and y + d[j][0] < h and 0 <= x + d[j][1] and x + d[j][1] < w:
-                    if field[y+d[j][0]][x+d[j][1]] == 0: 
-                        dy, dx = d[j][0], d[j][1]
-                        break
-            field[y][x] = i+1
-            y += dy
-            x += dx
-            cnt -= 1
-    for i in range(h):
-        for j in range(w):
-            print(field[i][j], end=' ')
-        print()
+import math
+a, b, h, m = map(int, input().split())
+
+ho = 90
+mi = 90
+
+res = math.pi/2
+"""
+hx = a*math.cos(res)
+hy = a*math.sin(res)
+mx = b*math.cos(res)
+my = b*math.sin(res)
+"""
+hx = 0
+hy = a
+mx = 0
+my = b
+print(hx, hy)
+print(mx, my)
+
+ho = res-2*math.pi*h/12
+mi = res-2*math.pi*m/60
+
+hx = a*math.cos(ho)
+hy = a*math.sin(ho)
+mx = b*math.cos(mi)
+my = b*math.sin(mi)
+print(hx, hy)
+print(mx, my)
+print(math.sqrt((hx-mx)**2 + (hy-my)**2))
