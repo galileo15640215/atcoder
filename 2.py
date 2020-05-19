@@ -1,19 +1,18 @@
-h, w = map(int, input().split())
-a = []
-for i in range(h):
-    t = list(input())
-    a.append(t)
-id = []
-jd = []
-for i in range(h):
-    for j in range(w):
-        if a[i][j] == '#':
-            if i not in id:
-                id.append(i)
-            if j not in jd:
-                jd.append(j)
-jd.sort()
-for i in id:
-    for j in jd:
-        print(a[i][j], end="")
-    print()
+s =input()
+a = 0
+b = 0
+c = 0
+for i in range(len(s)):
+    if s[i] == 'a':
+        a += 1
+    elif s[i] == 'b':
+        b += 1
+    elif s[i] == 'c':
+        c += 1
+ans = max(max(a, b), c)
+if ans == a:
+    print('a')
+elif ans == b:
+    print('b')
+else:
+    print('c')

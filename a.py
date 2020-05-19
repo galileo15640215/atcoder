@@ -1,7 +1,5 @@
-n = int(input())
-if n%10 == 2 or n%10 == 4 or n%10 == 5 or n%10 == 7 or n%10 == 9:
-    print("hon")
-elif n%10 == 0 or n%10 == 1 or n%10 == 6 or n%10 == 8:
-    print("pon")
-else:
-    print("bon")
+s = input()
+dic = {}
+st = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+for i in range(len(s)):
+    if s[i] not in dic.keys
