@@ -41,7 +41,14 @@ s = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 
 list.insert(idx, num)
 list.reverse()
 v.sort(key=lambda x: x[0])
+#第2キーの点数を降順にしたい場合、-をつける
+sorted(a, key=lambda x:(x[0],-x[1]))
 l = list(itertools.combinations(range(1, m+1), n))
+#ソート済みの状態を維持
+import bisect
+index = bisect.bisect_left(l, j)
+l.insert(index, j)
+#切り上げ
 math.ceil(num)
 #貪欲法
 
