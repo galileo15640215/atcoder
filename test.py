@@ -1,18 +1,68 @@
-n, w = map(int, input().split())
-c = []
-sum_w = 0
-for i in range(n):
-    s = list(map(int, input().split()))
-    c.append(s)
-    sum_w += s[0]
-dp = [[0 for j in range(sum_w+1)]for i in range(n)]
-c.sort(key=lambda x: x[0])
-for i in range(c[0][0], sum_w+1):
-    dp[0][i] = c[0][1]
-for i in range(1, n):
-    for j in range(sum_w+1):
-        if  j-c[i][0] >= 0:
-            dp[i][j] = max(dp[i-1][j], dp[i-1][j-c[i][0]] + c[i][1])
-        if dp[i][j] == 0:
-            dp[i][j] = dp[i-1][j]
-print(dp[n-1][w])
+from __future__ import print_function
+import datetime
+import pickle
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+import re
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+
+# Quickstartのサンプルはカレンダー参照用で、カレンダーに書き込むにはSCOPESを変更する
+# SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
+SCOPES = 'https://www.googleapis.com/auth/calendar'
+# 認証キーのファイル名
+CLIENT_SECRET_FILE = 'client_secret.json'
+# アプリケーション名（任意）
+APPLICATION_NAME = 'Google Calendar API Python Quickstart'
+def main():
+    credentials = get_credentials()
+    http = credentials.authorize(httplib2.Http())
+    service = discovery.build('calendar', 'v3', http=http)
+ 
+    # 以降Quickstartから変更
+     
+    # 図書館カレンダーをスクレイピングして休館日を取得
+    # 当月と翌月の2ヶ月分あるが、翌月のカレンダーのみ取得する
+    url = "http://www.ndl.go.jp/jp/service/tokyo/time.html"
+    html_data = urlopen(url).read()
+    html_parsed = BeautifulSoup(html_data, "html.parser")
+ 
+    calendar = html_parsed.findAll("table", class_="calendarTable")[1]
+ 
+    # 年と月のリスト
+    yearmonth = re.findall('\d+', calendar.caption.text)
+ 
+    # 休館日を取得
+    holidays = calendar.findAll("td", class_="holiday")
+    days = []
+    for holiday in holidays:
+        days.append(holiday.text.strip('()'))
+ 
+ 
+    # Googleカレンダーに休館日を登録
+    for day in days:
+        # Googleカレンダーに登録する日付（YYYY-MM-DD）を作成
+        date = "{}-{:0>2}-{:0>2}".format(yearmonth[0], yearmonth[1], day)
+ 
+        # 休館日を終日イベントとして登録するように設定
+        event = {
+            'summary': '国会図書館休館日',
+            'description': '国会図書館の休館日',
+            'start': {
+                'date': date,
+                'timeZone': 'Asia/Tokyo',
+            },
+            'end': {
+                'date': date,
+                'timeZone': 'Asia/Tokyo',
+            },
+        }
+ 
+        # 休館日を登録するGoogleカレンダーIDをcalendarIdに指定し、イベントを登録する
+        event = service.events().insert(calendarId='calendarId.calendar.google.com', body=event).execute()
+
+if __name__ == '__main__':
+    main()
