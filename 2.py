@@ -1,19 +1,13 @@
-class Solution:
-    def maxVowels(self, s: str, k: int) -> int:
-        sl = len(s)
-        cnt = 0
-        st = ['a', 'e', 'i', 'o', 'u']
-        ma = 0
-        for i in range(k):
-            if s[i] in st:
-                cnt += 1
-        if ma < cnt:
-            ma = cnt
-        for i in range(k, sl):
-            if s[i] in st:
-                cnt += 1
-            if s[i-k] in st:
-                cnt -= 1
-            if ma < cnt:
-                ma = cnt
-        return ma
+t = int(input())
+for i in range(t):
+    n = int(input())
+    s = list(map(int, input().split()))
+    if n == 2:
+        print(abs(s[0]-s[1]))
+    else:
+        s.sort()
+        mi = 9999999999
+        for j in range(1, n):
+            if s[j] - s[j-1] < mi:
+                mi = s[j] - s[j-1]
+        print(mi)
