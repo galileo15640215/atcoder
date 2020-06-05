@@ -10,26 +10,19 @@ using namespace std;
 int main(void){
     cin.tie(0);
     ios::sync_with_stdio(false);
-    int n;
-    cin>>n;
-    int a[n], b[n];
-    float tmp;
-    vector<float> ans;
-    bool flag;
-    rep(i, n){
-        cin>>a[i]>>b[i];
-        tmp = b[i]-a[i];
-        flag = true;
-        rep(j, ans.size()){
-            if(tmp == ans[j]){
-                flag = false;
-                break;
+    int n, x, cnt = 0;
+    cin>>n>>x;
+    int a[n];
+    rep(i, n)
+        cin>>a[i];
+    rep(i, n-1){
+        for(int j = i+1; j < n; j++){
+            if(a[i]^a[j] == x){
+                cout<<a[i]^a[j]<<endl;
+                cnt += 1;
             }
         }
-        if(flag){
-            ans.pb(tmp);
-        }
     }
-    cout<<ans.size()<<endl;
+    cout<<cnt<<endl;
     return 0;
 }

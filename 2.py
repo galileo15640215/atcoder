@@ -1,16 +1,8 @@
-n = int(input())
+n, k, x, y = map(int, input().split())
 a = list(map(int, input().split()))
-su = 1
-flag = True
-if 0 in a:
-    print(0)
+ans = 0
+if n*k*x < k*y:
+    ans += (max(a)-1)*n*k
+elif
 else:
-    for i in range(n):
-        su *= a[i]
-        if su > 10**18:
-            flag = False
-            break
-    if flag:
-        print(su)
-    else:
-        print(-1)
+print(ans)
