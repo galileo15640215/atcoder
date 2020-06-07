@@ -1,6 +1,7 @@
-c = input()
-cnt = len(c)
-for i in range(len(c)):
-    if c[i] == '0':
-        cnt -= 1
-print(cnt-1)
+class Solution:
+    def shuffle(self, nums: List[int], n: int) -> List[int]:
+        l = []
+        for i in range(n):
+            l.append(nums[i])
+            l.append(nums[i+n])
+        return l
