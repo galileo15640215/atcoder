@@ -10,19 +10,23 @@ using namespace std;
 int main(void){
     cin.tie(0);
     ios::sync_with_stdio(false);
-    int n, x, cnt = 0;
-    cin>>n>>x;
-    int a[n];
-    rep(i, n)
-        cin>>a[i];
-    rep(i, n-1){
-        for(int j = i+1; j < n; j++){
-            if(a[i]^a[j] == x){
-                cout<<a[i]^a[j]<<endl;
-                cnt += 1;
-            }
-        }
+    int a, b, c, d, n;
+    cin>>a>>b>>c>>d;
+    cin>>n;
+    string t;
+    int l, sum = 0;
+    rep(i, n){
+      cin>>t>>l;
+      int res = b;
+      if(l > a){
+          res += ceil(double(l-a)/double(c))*d;
+      }
+      if(t[0] == '0'){}
+      else if(int(t[0])*10 + int(t[1]) >= 22){
+          res *= 1.2;
+      }
+      sum += res;
     }
-    cout<<cnt<<endl;
+    cout<<sum<<endl;
     return 0;
 }
