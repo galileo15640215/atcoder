@@ -1,45 +1,44 @@
-#bfs
-import queue
+import math
 
-n, h, w = map(int, input().split())
-h += 201
-w += 201
-lim = 405
-visited = [[0 for i in range(lim)] for j in range(lim)]
-c = [['.' for j in range(lim)] for i in range(lim)]
-c[201][201] = 'S'
-c[w][h] = 'G'
-for i in range(n):
-    s, t = map(int, input().split())
-    s += 201
-    t += 201
-    visited[t][s] = 999999999
-    c[t][s] = '#'
-q = queue.Queue()
-q.put([201, 201])
-ans = 0
-visited[201][201] = 1
-dy_dx = [[1,1], [1,0], [1,-1], [0,1], [0,-1], [-1,0]]
-flag = False
-while not q.empty():
-    now = q.get() # now[0]..y, now[1]..x
-    if c[now[0]][now[1]] == 'G':
-        flag = True
-        break
-    for i in range(6):
-        y = now[0] + dy_dx[i][0]
-        x = now[1] + dy_dx[i][1]
-        if 0 <= y < lim and 0 <= x < lim:
-            if c[y][x] != '#' and visited[y][x] == 0:
-                visited[y][x] = visited[now[0]][now[1]] + 1
-                q.put([y, x])
-"""
-for i in range(lim):
-    for j in range(lim):
-        if visited[j][i] != 0:
-            print(visited[j][i], j, i)
-"""
-if flag:
-    print(visited[w][h]-1)
+def get_sieve_of_eratosthenes(n):
+    if not isinstance(n, int):
+        raise TypeError('n is int type.')
+    if n < 2:
+        raise ValueError('n is more than 2')
+    prime = []
+    limit = math.sqrt(n)
+    data = [i + 1 for i in range(1, n)]
+    while True:
+        p = data[0]
+        if limit <= p:
+            return prime + data
+        prime.append(p)
+        data = [e for e in data if e % p != 0]
+
+l, r = map(int, input().split())
+m = int(input())
+n = list(map(int, input().split()))
+
+n.sort()
+flag = True
+while flag:
+    flag = False
+    for i in range(len(n)-1):
+        for j in range(i+1, len(n)):
+            if n[j]%n[i] == 0:
+                n.pop(j)
+                flag = True
+                break
+        if flag:
+            break
+ans = r-l+1
+m = len(n)
+if 1 in n:
+    print(0)
 else:
-    print(-1)
+    for i in range(l, r+1):
+        for j in range(m):
+            if i%n[j] == 0:
+                ans -= 1
+                break
+    print(ans)
