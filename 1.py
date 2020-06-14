@@ -1,8 +1,6 @@
-n = int(input())
-k = int(input())
-x = int(input())
-y = int(input())
-if n <= k:
-    print(x*n)
-else:
-    print(x*(k) + y*(n-k))
+class Solution:
+    def runningSum(self, nums: List[int]) -> List[int]:
+        rui = [nums[0]]
+        for i in range(1, len(nums)):
+            rui.append(rui[i-1] + nums[i])
+        return rui

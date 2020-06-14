@@ -220,3 +220,7 @@ while not q.empty():
             if c[y][x] != '#' and visited[y][x] == 0:
                 visited[y][x] = visited[now[0]][now[1]] + 1
                 q.put([y, x])
+#累積和
+rui = [0]
+for j in range(1, n):
+    rui.append(rui[j-1] + a[j-1])
