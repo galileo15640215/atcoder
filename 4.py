@@ -1,47 +1,59 @@
-#bfs
-import queue
- 
-h, w = map(int, input().split())
-s = [list(input()) for i in range(h)]
-visited = [[0 for i in range(w)] for j in range(h)]
-c = [[99999999 for i in range(w)] for j in range(h)]
-q = queue.Queue()
-for i in range(h):
-    for j in range(w):
-        if s[i][j] == 'S':
-            sy = i
-            sx = j
-        if s[i][j] == 'G':
-            gy = i
-            gx = j
-q.put([sy, sx, 0])
-visited[sy][sx] = 4
-c[sy][sx] = 0
-dyx = [[0, 1], [1, 0], [-1, 0], [0, -1]]
-bre = 0
-while not q.empty():
-    now = q.get()
-    flag = False
-    if now[0] == gy and now[1] == gx:
-        print(now[2])
+def make_divisors(n):
+    lower_divisors , upper_divisors = [], []
+    i = 1
+    while i*i <= n:
+        if n % i == 0:
+            lower_divisors.append(i)
+            if i != n // i:
+                upper_divisors.append(n//i)
+        i += 1
+    return lower_divisors + upper_divisors[::-1]
+
+n = int(input())
+a = list(map(int, input().split()))
+a.sort()
+cnt = n
+dic = {}
+for i in range(n):
+    if a[i] not in dic.keys():
+        dic[a[i]] = 1
+    else:
+        dic[a[i]] += 1
+l = []
+res = list(dic.keys())
+for i in res:
+    l.append(make_divisors(i)[1:])
+print(l)
+print(res)
+chk = [0 for i in range(len(res))]
+for i in range(res):
+    for j in range(i+1, len(l)):
+        if chk[j] == 0:
+            for k in range(len(l[j])):
+                if res[i] == l[j][k]:
+                    cnt -= dic[res]
+                    break
+            
+"""
+flag = True
+for i in range(n-1):
+    if a[i] != a[i+1]:
+        flag = False
         break
-    for i in range(4):
-        y = now[0] + dyx[i][0]
-        x = now[1] + dyx[i][1]
-        z = now[2]
-        if 0 <= y < h and 0 <= x < w:
-            if visited[y][x] != 4:
-                visited[y][x] += 1
-                q.put([y, x, z+1])
-                if s[y][x] == '.':
-                    if c[y][x] > c[now[0]][now[1]] + z + 1:
-                        c[y][x] = c[now[0]][now[1]] + z + 1
-                        q.put([y, x, z+1])
-                elif s[y][x] == '#':
-                    if c[y][x] > c[now[0]][now[1]] + z + bre + 1:
-                        c[y][x] = c[now[0]][now[1]] + z + bre + 1
-                        flag = True
-                        q.put([y, x, z+bre+1])
-    if flag:
-        bre += 1
-print(c)
+if n == 1:
+    cnt = 1
+elif flag:
+    cnt = 0
+else:
+    for i in range(n-1, 0, -1):
+        for j in range(0, i, 1):
+            if a[i] == a[j] or a[i] == a[j+1]:
+                cnt -= 1
+                break
+            elif a[i]/2 < a[j]:
+                break
+            elif a[i]%a[j] == 0:
+                cnt -= 1
+                break
+print(cnt)
+"""
