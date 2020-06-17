@@ -50,6 +50,10 @@ index = bisect.bisect_left(l, j)
 l.insert(index, j)
 #切り上げ
 math.ceil(num)
+#リスト内の真偽
+all()
+#各要素の個数（要素ごとの出現回数）
+count('a')
 #貪欲法
 
 #ワーシャルフロイド

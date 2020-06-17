@@ -1,6 +1,9 @@
-s = input()
-n = int(s[0])*100 + int(s[1])*10 + int(s[2])
-for i in range(1, len(s)-2):
-    if abs(753-n) > abs(753-(int(s[i])*100 + int(s[i+1])*10 + int(s[i+2]))):
-        n = int(s[i])*100 + int(s[i+1])*10 + int(s[i+2])
-print(abs(753-n))
+N = int(input())
+def dfs(s): # 文字列 s で始まる七五三数の個数
+    if int(s) > N:
+        return 0
+    ret = 1 if all(s.count(c) > 0 for c in '753') else 0 # s 自体が七五三数なら +1
+    for c in '753':
+        ret += dfs(s + c)
+    return ret
+print(dfs('0')) # 本当は dfs('') と書きたいが 4 行目でのエラーを防ぐため仕方なく
