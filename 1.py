@@ -1,2 +1,7 @@
-s, t = map(int, input().split())
-print(t-s+1)
+t = int(input())
+for i in range(t):
+    n = int(input())
+    if n%2 == 0:
+        print("YES")
+    else:
+        print("NO")
