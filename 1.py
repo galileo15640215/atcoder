@@ -1,7 +1,10 @@
-t = int(input())
-for i in range(t):
-    n = int(input())
-    if n%2 == 0:
-        print("YES")
-    else:
-        print("NO")
+f = open('sort.in')
+a = list(f.read().split())
+f.close()
+print(len(a))
+a.pop(0)
+a.sort()
+f = open('out.txt','w')
+for i in range(len(a)):
+    f.write(str(a[i]) + ' ')
+f.close()
