@@ -1,4 +1,3 @@
 n = int(input())
-print(n)
-for i in range(n):
-    print(1)
+a, b = map(str, input().split())
+a = list(map(int, input().split()))
