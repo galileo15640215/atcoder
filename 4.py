@@ -1,5 +1,3 @@
-a, op, b = map(str, input().split())
-if op == '+':
-    print(int(a)+int(b))
-else:
-    print(int(a)-int(b))
+n = int(input())
+a, b = map(str, input().split())
+a = list(map(int, input().split()))
