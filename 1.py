@@ -1,8 +1,5 @@
-a = int(input())
-b = int(input())
-tmp = b
-for i in range(100):
-    if a <= tmp:
-        break
-    tmp += b
-print(tmp-a)
+w, h = map(int, input().split())
+if w/h == 4/3:
+    print("4:3")
+elif w/h == 16/9:
+    print("16:9")
