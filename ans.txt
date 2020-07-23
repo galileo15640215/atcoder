@@ -1,0 +1,99 @@
+C言語やJavaには関数
+JavaはC言語をベースに便利な部分を拡張し、不便な部分を排除して作られている。
+関数を使うとどのように便利になるのかを説明する。
+ここでは、ポケモンを例に説明する。
+ポケモンにはそれぞれの種族において固有の値が決まっており、
+HP-こうげき-ぼうぎょ-とくこう-とくぼう-すばやさ、さらに
+H-A-B-C-D-Sという表記で表現される。
+No.25ピカチュウなら35-55-40-50-50-90(合計320)
+No.150ミュウツーなら106-110-90-154-90-130(合計680)
+といった具合だ。
+なお、正確にはこの種族値に加えて、個体値、努力値というパラメータが個体ごとに存在し、実数値が計算されるが
+まずは、簡略化のためこの二つのパラメータについては考慮しないものとする。
+さらに、タイプ相性を考慮する。
+こうかばつぐんのときは与えるダメージが2倍、いまひとつのときは0.5倍になる。
+
+int HP; //攻撃を受けるポケモンのHP
+int A; //物理攻撃をするポケモンのこうげき種族値
+int B; //物理攻撃を受けるポケモンのぼうぎょ種族値
+int M; //わざのいりょく(MOVE)
+
+HP = HP - (A - B + M)*(タイプ相性);
+
+この処理を関数化することによって修正する部分を少なくすることができる。
+int calc_HP(int HP, int A, int B, int M){
+    HP = HP - (A - B + M)*(タイプ相性);
+    return HP;
+}
+
+配列をつかうことで以下のように変数が多くなってしまうパラメータをまとめることができる。
+
+int num //ポケモンNO.
+int type;
+int H;
+int A;
+int B;
+int C;
+int D;
+int S;
+を
+int P[7];
+とする。
+
+構造体にっよってパラメータを定義することもできる。
+struct Pokemon{
+    int num; //ポケモンNO.
+    int type;
+    int H;
+    int A;
+    int B;
+    int C;
+    int D;
+    int S;
+}
+
+Pokemon Pikachu;
+Pokemon Mewtwo;
+
+Javaではクラスという機能がある。これは構造体にプラスして関数を宣言することができる。
+
+class Pokemon{
+    int num;
+    int type;
+    int H;
+    int A;
+    int B;
+    int C;
+    int D;
+    int S;
+    public Pokemon(int n, int t, int h, int a, int b, int c, int d, int s){
+        this.num = n;
+        this.type = t;
+        this.H = h;
+        this.A = a;
+        this.B = b;
+        this.C = c;
+        this.D = d;
+        this.S = s;
+    }
+    public int Calc_Damage(int b, int M){
+        int damage;
+        damage = A - b + M*(タイプ相性);
+        return damage;
+    }
+}
+
+ピカチュウがミュウツーに10万ボルト(いりょく95)を使った時のダメージ処理を記述する。
+ピカチュウなら35-55-40-50-50-90(合計320)
+ミュウツーなら106-110-90-154-90-130(合計680)
+Pokemon Pikachu(25, 3, 35, 55, 40, 50, 50, 90); //タイプでんきは3
+Pokemon Mewtwo;(150, 10, 106, 110, 90, 154, 90, 130); //タイプエスパーは10
+Pikachu.Calc_Damage(Mewtwo.B, 95);
+
+継承
+現在、ポケットモンスターソードシールドのバトル要素としてダイマックスがある。これは、3ターンの間のみポケモンのHPを2倍にし、技のいりょくを上げる効果がある。
+class Daimax extends Pokemon{
+    public Pokemon(int n, int t, int h, int a, int b, int c, int d, int s){
+        super(n, t, h*2, a, b, c, d, s);
+    }
+}
