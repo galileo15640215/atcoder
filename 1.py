@@ -1,17 +1,43 @@
-x = int(input())
-if 400 <= x <= 599:
-    print(8)
-elif 600 <= x <= 799:
-    print(7)
-elif 800 <= x <= 999:
-    print(6)
-elif 1000 <= x <= 1199:
-    print(5)
-elif 1200 <= x <= 1399:
-    print(4)
-elif 1400 <= x <= 1599:
-    print(3)
-elif 1600 <= x <= 1799:
-    print(2)
-elif 1800 <= x <= 1999:
-    print(1)
+t = int(input())
+for case in range(t):
+    n = int(input())
+    a = input()
+    b = input()
+    print("Case #"+str(case+1)+": ")
+    for i in range(n):
+        ans = ''
+        if b[i] == 'N':
+            for j in range(n):
+                if i == j:
+                    ans += 'Y'
+                else:
+                    ans += 'N'
+        elif b[i] == 'Y':
+            id = 0
+            for j in range(i, -1, -1):
+                if i == j:
+                    pass
+                elif a[j] == 'N':
+                    id = j
+                    break
+            jd = n
+            for j in range(i, n):
+                if i == j:
+                    pass
+                elif a[j] == 'N':
+                    jd = j-1
+                    break
+            #print(id, jd)
+            for j in range(0, id):
+                if i == j:
+                    ans += 'Y'
+                else:
+                    ans += 'N'
+            for j in range(id, jd):
+                ans += 'Y'
+            for j in range(jd, n):
+                if i == j:
+                    ans += 'Y'
+                else:
+                    ans += 'N'
+        print(ans)
