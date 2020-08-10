@@ -1,3 +1,5 @@
-s = input()
-n = int(input())
-print(s[(n-1)//5]+s[(n-1)%5])
+n = input()
+if n[0] >= n[1] and n[1] >= n[2]:
+    print(n[0]+n[0]+n[0])
+else:
+    print(str(int(n[0])+1) + str(int(n[0])+1) + str(int(n[0])+1))
