@@ -1,5 +1,4 @@
+import math
 n = int(input())
-if n%2 == 0:
-    print(n-1)
-else:
-    print(n+1)
+a = list(map(int, input().split()))
+print(math.ceil(sum(a)/n))
