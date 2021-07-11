@@ -1,32 +1,25 @@
-#include <bits/stdc++.h>
-#define INF 1e9
-#define all(v) v.begin(), v.end()
-#define rep(i, n) for(int i = 0; i < n; i++)
-#define pb push_back
-#define eb emplace_back
-#define mp make_pair
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
 using namespace std;
 
-int main(void){
-    cin.tie(0);
-    ios::sync_with_stdio(false);
-    int a, b, c, d, n;
-    cin>>a>>b>>c>>d;
-    cin>>n;
-    string t;
-    int l, sum = 0;
-    rep(i, n){
-      cin>>t>>l;
-      int res = b;
-      if(l > a){
-          res += ceil(double(l-a)/double(c))*d;
-      }
-      if(t[0] == '0'){}
-      else if(int(t[0])*10 + int(t[1]) >= 22){
-          res *= 1.2;
-      }
-      sum += res;
+void re(string now,int p,int n,string s,map<string,int>&A){
+    if(p==n) {
+        if(now!="")A[now]=1; //空文字でなければ追加
+        return;
     }
-    cout<<sum<<endl;
-    return 0;
+    re(now+s[p],p+1,n,s,A); // p番目を追加する
+    re(now,p+1,n,s,A); //p番目を追加しない
+}
+
+int main(){
+    int ans= 0;
+    string s; // 文字列入力
+    cin >> s;
+    int n=s.size(); // 文字サイズn 
+    map<string,int> A; 
+    re("",0, n,s,A);
+
+    cout<<A.size()<<endl; // 保存した文字列のサイズが答え
 }
